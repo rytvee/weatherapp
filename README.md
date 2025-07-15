@@ -2,9 +2,6 @@
 
 A simpe browser-based weather app built with HTML, JavaScript and WeatherAPI
 
-## Features
-
-- 
 
 ## Demo
 
