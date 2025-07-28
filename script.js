@@ -9,12 +9,17 @@ form.addEventListener("submit", function (e) {
   const city = cityInput.value.trim();
   if (city === "") return;
 
+  console.log("Searching for:", city); // ✅ Debug
+
   fetch(`${BACKEND_URL}?city=${encodeURIComponent(city)}`)
     .then(response => {
+      console.log("Response received:", response.status); // ✅ Debug
       if (!response.ok) throw new Error("City not found");
       return response.json();
     })
     .then(data => {
+      console.log("Data received:", data); // ✅ Debug
+
       const temp = data.current.temp_c;
       const condition = data.current.condition.text;
       const icon = data.current.condition.icon;
@@ -28,6 +33,7 @@ form.addEventListener("submit", function (e) {
       `;
     })
     .catch(error => {
+      console.error("Fetch error:", error); // ✅ Debug
       weatherDiv.innerHTML = `<p style="color:red;">${error.message}</p>`;
     });
 });
