@@ -9,31 +9,33 @@ form.addEventListener("submit", function (e) {
   const city = cityInput.value.trim();
   if (city === "") return;
 
-  console.log("Searching for:", city); // ✅ Debug
+  console.log("Searching for:", city);
 
   fetch(`${BACKEND_URL}?city=${encodeURIComponent(city)}`)
     .then(response => {
-      console.log("Response received:", response.status); // ✅ Debug
+      console.log("Response received:", response.status);
       if (!response.ok) throw new Error("City not found");
       return response.json();
     })
     .then(data => {
-      console.log("Data received:", data); // ✅ Debug
+      console.log("Data received:", data);
 
-      const temp = data.current.temp_c;
-      const condition = data.current.condition.text;
-      const icon = data.current.condition.icon;
-      const location = `${data.location.name}, ${data.location.country}`;
+      const temp = data.current?.temp_c ?? "N/A";
+      const condition = data.current?.condition?.text ?? "Unknown";
+      const icon = data.current?.condition?.icon ?? "";
+      const location = `${data.location?.name ?? "Unknown"}, ${data.location?.country ?? ""}`;
 
       weatherDiv.innerHTML = `
         <h2>${location}</h2>
-        <img src="https:${icon}" alt="${condition}"/>
-        <p><strong>Temperature: </strong> ${temp}°C</p>
-        <p><strong>Condition: </strong> ${condition}</p>
+        <img src="https:${icon}" alt="${condition}" />
+        <p><strong>Temperature:</strong> ${temp}°C</p>
+        <p><strong>Condition:</strong> ${condition}</p>
       `;
+
+      console.log("HTML injected into #weather");
     })
     .catch(error => {
-      console.error("Fetch error:", error); // ✅ Debug
+      console.error("Error occurred:", error.message);
       weatherDiv.innerHTML = `<p style="color:red;">${error.message}</p>`;
     });
 });
