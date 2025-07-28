@@ -26,11 +26,12 @@ form.addEventListener("submit", function (e) {
       const location = `${data.location?.name ?? "Unknown"}, ${data.location?.country ?? ""}`;
 
       weatherDiv.innerHTML = `
-        <h2>${location}</h2>
-        <img src="https:${icon}" alt="${condition}" />
-        <p><strong>Temperature:</strong> ${temp}°C</p>
-        <p><strong>Condition:</strong> ${condition}</p>
-      `;
+  <h2>${location}</h2>
+  <img src="${icon.startsWith('//') ? 'https:' + icon : icon}" alt="${condition}" />
+  <p><strong>Temperature:</strong> ${temp}°C</p>
+  <p><strong>Condition:</strong> ${condition}</p>
+`;
+
 
       console.log("HTML injected into #weather");
     })
