@@ -9,7 +9,7 @@ form.addEventListener("submit", function (e) {
   const city = cityInput.value.trim();
   if (city === "") return;
 
-  fetch(`${BACKEND_URL}?q=${encodeURIComponent(city)}`)
+  fetch(`${BACKEND_URL}?city=${encodeURIComponent(city)}`)
     .then(response => {
       if (!response.ok) throw new Error("City not found");
       return response.json();
