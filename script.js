@@ -1,7 +1,7 @@
 const form = document.getElementById("weatherForm");
 const cityInput = document.getElementById("cityInput");
 const weatherDiv = document.getElementById("weather");
-const API_KEY = "7a08d1b142b94e5eab474229250907"; // Replace with your own key
+const API_KEY = ""; // Replace with your own key
 
 form.addEventListener("submit", function(e) {
   e.preventDefault();
