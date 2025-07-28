@@ -1,9 +1,22 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(to right, #743bd5, #d6b025);
+  background: linear-gradient(to right, #743bd5, #ca9f68);
   color: #333;
   text-align: center;
-  padding: 50px;
+  padding: 50px 20px;
+  margin: 0;
+}
+
+h1 {
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 input[type="text"] {
@@ -11,7 +24,6 @@ input[type="text"] {
   width: 250px;
   border: none;
   border-radius: 5px;
-  margin-bottom: 5px;
 }
 
 button {
@@ -28,10 +40,45 @@ button:hover {
 }
 
 #weather {
+  display: none; /* Hidden initially */
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
-  display: inline-block;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+#weather h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  word-wrap: break-word;
+  max-width: 100%;
+  padding: 0 10px;
+}
+
+#weather img {
+  max-width: 100px;
+  height: auto;
+}
+
+@media (max-width: 300px) {
+  h1 {
+    font-size: 22px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  #weather h2 {
+    font-size: 16px;
+    padding: 0 5px;
+    text-align: center;
+  }
+
+  #weather img {
+    max-width: 80px;
+  }
 }
