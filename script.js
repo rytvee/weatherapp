@@ -32,7 +32,7 @@ form.addEventListener("submit", function (e) {
   <p><strong>Condition:</strong> ${condition}</p>
 `;
 
-
+console.log("Final icon URL:", icon);
       console.log("HTML injected into #weather");
     })
     .catch(error => {
