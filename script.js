@@ -25,6 +25,7 @@ form.addEventListener("submit", function (e) {
       const icon = data.current?.condition?.icon ?? "";
       const location = `${data.location?.name ?? "Unknown"}, ${data.location?.country ?? ""}`;
 
+      weatherDiv.style.display = "block";
       weatherDiv.innerHTML = `
   <h2>${location}</h2>
   <img src="${icon.startsWith('//') ? 'https:' + icon : icon}" alt="${condition}" />
