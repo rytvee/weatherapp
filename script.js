@@ -31,6 +31,7 @@ form.addEventListener("submit", function (e) {
   <p><strong>Temperature:</strong> ${temp}°C</p>
   <p><strong>Condition:</strong> ${condition}</p>
 `;
+      weatherDiv.style.display = "inline-block";
 
 console.log("Final icon URL:", icon);
       console.log("HTML injected into #weather");
