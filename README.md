@@ -8,7 +8,7 @@ You can try the app here:
 
 ## ✨ Features
 - 🌍 Search for any city worldwide
-- 🌤 View current weather (temperature, conditions, humidity, wind speed, etc.)
+- 🌤 View current weather (temperature, humidity, description)
 - 📅 See 2-day weather forecast ahead
 - 📱 Fully responsive design for desktop and mobile
 - 🗓 Built-in date picker for easy date selection
