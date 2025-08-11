@@ -5,14 +5,16 @@ The app fetches real-time weather data using a public weather API and shows deta
 
 ## ✨ Features
 - 🌍 Search for any city worldwide
-
 - 🌤 View current weather (temperature, conditions, humidity, wind speed, etc.)
-
 - 📅 See 2-day weather forecast ahead
-
 - 📱 Fully responsive design for desktop and mobile
-
 - 🗓 Built-in date picker for easy date selection
+
+## 🛠 Technologies Used
+- HTML5 – Structure of the app
+- CSS3 – Styling and responsive layout
+- JavaScript (Vanilla JS) – Core logic and API handling
+- OpenWeatherMap API – For weather data
 
 ## Demo
 
