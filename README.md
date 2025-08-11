@@ -4,7 +4,7 @@ The app fetches real-time weather data using a public weather API and shows deta
 
 ## 🌐 Live Demo
 You can try the app here:
-[Live Weather App on GitHub Pages](https://rytvee.github.io/weatherapp/)
+[Live Weather App:](https://rytvee.github.io/weatherapp/)
 
 ## ✨ Features
 - 🌍 Search for any city worldwide
