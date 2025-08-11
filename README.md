@@ -45,6 +45,7 @@ The API key is stored securely in Vercel Environment Variables (or .env for loca
 Prevents the API key from being exposed in client-side code.
 
 ## 📦 Installation
+```text
 1. Clone this repository:
    git clone https://github.com/rytvee/weatherapp.git
    cd weatherapp
@@ -67,7 +68,7 @@ Prevents the API key from being exposed in client-side code.
      Set the WEATHER_API_KEY environment variable in Vercel settings.
      Deploy — your API will be available at:
         https://your-vercel-project.vercel.app/api/weather
-
+```
 ## 🔄 How It Works
 Browser (GitHub Pages frontend)
      ↓ request to /api/weather
