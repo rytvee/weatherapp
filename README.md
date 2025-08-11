@@ -1,7 +1,18 @@
-# weatherapp
+# 🌦 Weather Forecast App
 
-A simpe browser-based weather app built with HTML, JavaScript and WeatherAPI
+A simple JavaScript web application that displays the current weather and a 2-day forecast for any city.
+The app fetches real-time weather data using a public weather API and shows details such as temperature, weather condition, humidity, and more.
 
+## ✨ Features
+- 🌍 Search for any city worldwide
+
+- 🌤 View current weather (temperature, conditions, humidity, wind speed, etc.)
+
+- 📅 See 2-day weather forecast ahead
+
+- 📱 Fully responsive design for desktop and mobile
+
+- 🗓 Built-in date picker for easy date selection
 
 ## Demo
 
