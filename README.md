@@ -36,7 +36,6 @@ weatherapp/
 │
 └── images/                 # Weather icons and assets
 
-
 ## 📂 weather-api-proxy/
 This folder contains the serverless API endpoint used when the app is deployed to Vercel.
 Acts as a proxy between the browser and the external weather API.
