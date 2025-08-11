@@ -73,15 +73,16 @@ Prevents the API key from being exposed in client-side code.
 
 
 ## 🔄 How It Works
-Browser (GitHub Pages frontend)
-     ↓ request to /api/weather
-Vercel Serverless Function (weather-api-proxy/)
-     ↓ attaches API key from environment
-External Weather API
-     ↑ returns data to Vercel
-Vercel → Browser
-✅ Fast static hosting via GitHub Pages.
-🔒 Secure API key handling via Vercel serverless function.
+     Browser (GitHub Pages frontend)
+          ↓ request to /api/weather
+     Vercel Serverless Function (weather-api-proxy/)
+          ↓ attaches API key from environment
+     External Weather API
+          ↑ returns data to Vercel
+     Vercel → Browser
+
+     ✅ Fast static hosting via GitHub Pages.
+     🔒 Secure API key handling via Vercel serverless function.
 
 ## 🚀 Usage
 1. Enter a city name in the search box.
