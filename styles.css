@@ -1,84 +1,134 @@
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(to right, #743bd5, #ca9f68);
-      color: #333;
-      text-align: center;
-      padding: 50px 20px;
-      margin: 0;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    h1 {
-      color: #fff;
-      margin-bottom: 30px;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #743bd5, #d6b025);
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
 
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
+h1 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
 
-    input[type="text"] {
-      padding: 10px;
-      width: 250px;
-      border: none;
-      border-radius: 5px;
-    }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto 20px auto;
+  width: 100%;
+}
 
-    button {
-      padding: 10px 15px;
-      border: none;
-      background-color: #333;
-      color: #fff;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+input,
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+}
 
-    button:hover {
-      background-color: #555;
-    }
+.date-wrapper {
+  position: relative;
+  display: inline-block;
+}
 
-    #weather {
-      display: none; /* Hidden initially */
-      background-color: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      margin-top: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      max-width: 100%;
-      word-wrap: break-word;
-    }
+input[type="date"] {
+  padding-right: 30px; /* Leave room for the custom icon */
+}
 
-    #weather h2 {
-      font-size: 20px;
-      margin-bottom: 15px;
-      word-wrap: break-word;
-      max-width: 100%;
-      padding: 0 10px;
-    }
+/* Hide the default calendar icon (Chrome, Edge, Safari) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  cursor: text;
+}
 
-    #weather img {
-      max-width: 100px;
-      height: auto;
-    }
+/* Custom calendar icon */
+.custom-calendar-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: gray;
+  z-index: 2;
+}
 
-    @media (max-width: 300px) {
-      h1 {
-        font-size: 22px;
-      }
+button {
+  background-color: #222;
+  color: white;
+  cursor: pointer;
+}
 
-      input[type="text"] {
-        width: 100%;
-      }
+button:hover {
+  background-color: #444;
+}
 
-      #weather h2 {
-        font-size: 16px;
-        padding: 0 5px;
-        text-align: center;
-      }
+#weather {
+  background-color: #fff;
+  color: #333;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 100%;
+  word-wrap: break-word;
+}
 
-      #weather img {
-        max-width: 80px;
-      }
-    }
+#weather h2,
+#weather h3 {
+  margin: 0 0 10px;
+  padding: 0;
+  word-break: break-word;
+}
+
+#weather img {
+  width: 100px;
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+
+.link {
+  margin-top: 10px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: #f0f0f0;
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  #weather {
+    padding: 15px;
+  }
+
+  #weather h2 {
+    font-size: 1.1rem;
+  }
+
+  #weather h3 {
+    font-size: 1rem;
+  }
+}
