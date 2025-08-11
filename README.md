@@ -45,8 +45,8 @@ The API key is stored securely in Vercel Environment Variables (or .env for loca
 Prevents the API key from being exposed in client-side code.
 
 ## 📦 Installation
-1. Clone this repository:␣␣
-   git clone https://github.com/rytvee/weatherapp.git␣␣
+1. Clone this repository:
+   git clone https://github.com/rytvee/weatherapp.git
    cd weatherapp
 2. Local Development (with Node.js)
    - Create a .env file inside the weather-api-proxy/ folder:
