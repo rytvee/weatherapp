@@ -21,18 +21,20 @@ You can try the app here:
 
 ## 📂 Project Structure
 weatherapp/
-│── index.html           # Main HTML layout (check current weather)
-│── forecast.html        # HTML layout for getting weather forecast
-│── style.css            # CSS for styling
-│── README.md            # Documentation
-│── weather-api-proxy/   # Secure backend layer (Vercel serverless functions)
-│   │── weather.js       # Current weather API endpoint
-│   └── forecast.js      # Weather forecast API endpoint
-│── js/                  # JavaScript logic (API calls, UI interaction)
-│   │── weather.js       # Current weather logic
-│   └── forecast.js      # Weather forecast logic
-└── images/              # Weather icons and assets
-
+│── index.html              # Main HTML layout (check current weather)
+│── forecast.html           # HTML layout for getting weather forecast
+│── style.css               # CSS for styling
+│── README.md               # Documentation
+│
+├── weather-api-proxy/      # Secure backend layer (Vercel serverless functions)
+│   ├── weather.js          # Current weather API endpoint
+│   └── forecast.js         # Weather forecast API endpoint
+│
+├── js/                     # JavaScript logic (API calls, UI interaction)
+│   ├── weather.js          # Current weather logic
+│   └── forecast.js         # Weather forecast logic
+│
+└── images/                 # Weather icons and assets
 
 
 ## 📂 weather-api-proxy/
