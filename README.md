@@ -45,12 +45,10 @@ The API key is stored securely in Vercel Environment Variables (or .env for loca
 Prevents the API key from being exposed in client-side code.
 
 ## 📦 Installation
-1. Clone this repository:
-
-   git clone https://github.com/rytvee/weatherapp.git
-
+1. Clone this repository:␣␣
+   git clone https://github.com/rytvee/weatherapp.git␣␣
    cd weatherapp
-3. Local Development (with Node.js)
+2. Local Development (with Node.js)
    - Create a .env file inside the weather-api-proxy/ folder:
      WEATHER_API_KEY=your_actual_api_key_here
    - Install dependencies in the weather-api-proxy/ folder:
@@ -58,7 +56,7 @@ Prevents the API key from being exposed in client-side code.
      npm install
    - Run locally using Vercel CLI:
      vercel dev
-4. Deployment
+3. Deployment
    - Frontend (GitHub Pages)
      Commit and push your index.html, style.css, and script.js to the main branch.
      Enable GitHub Pages in repository settings (set branch to main / root).
