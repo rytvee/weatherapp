@@ -91,7 +91,22 @@ Prevents the API key from being exposed in client-side code.
 3. View the current weather and 2-day forecast displayed on screen.
 
 ## 📌 Screenshots
+**index.html (check current weather)**
+<img width="1331" height="982" alt="image" src="https://github.com/user-attachments/assets/4077f445-93a2-4ce8-8434-c5cfe47a9a1a" />
+
+**index.html (check current weather result)**
+<img width="1350" height="995" alt="image" src="https://github.com/user-attachments/assets/ebb94a7e-314c-4e2c-a3d9-78836fb70949" />
+
+**forecast.html (forecast weather)**
+<img width="1343" height="999" alt="image" src="https://github.com/user-attachments/assets/5bffd9e1-a538-4f8c-9bba-4ad4c750554a" />
+
+**forecast.html (forecast weather date picker)**
+<img width="1337" height="987" alt="image" src="https://github.com/user-attachments/assets/f9195c0c-0358-42bb-9b0d-555b2d34ffdf" />
+
+**forecast.html (forecast weather result)**
+<img width="1344" height="995" alt="image" src="https://github.com/user-attachments/assets/b711912c-80e0-40e9-bea5-f64740468563" />
+
 
 ## 📜 License
-This project is licensed under the MIT License – free to use and modify.
+This project is free to use and modify.
 
