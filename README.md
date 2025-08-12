@@ -90,7 +90,7 @@ Prevents the API key from being exposed in client-side code.
 2. Click "Get Weather" or press Enter.
 3. View the current weather and 2-day forecast displayed on screen.
 
-## 📌 Screenshots
+## 📷 Screenshot
 
 **Check current weather**
 
