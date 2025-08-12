@@ -72,7 +72,7 @@ Prevents the API key from being exposed in client-side code.
      https://your-vercel-project.vercel.app/api/weather
 
 
-## 🔄 How It Works
+## 📋 How It Works
 **Browser (GitHub Pages frontend)**  
 &nbsp;&nbsp;&nbsp;&nbsp;↓ request to `/api/weather`  
 **Vercel Serverless Function** (`weather-api-proxy/`)  
