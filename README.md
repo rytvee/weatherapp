@@ -1,4 +1,4 @@
-# 🌦 Weather Forecast App
+# 🌦 Weather App
 A simple JavaScript web application that displays the current weather and a 2-day forecast for any city.
 The app fetches real-time weather data using a public weather API and shows details such as temperature, weather condition, humidity, and more.
 
@@ -92,26 +92,29 @@ Prevents the API key from being exposed in client-side code.
 
 ## 📌 Screenshots
 
-**index.html (check current weather)**
+**Check current weather**
 
-<img width="1331" height="982" alt="image" src="https://github.com/user-attachments/assets/4077f445-93a2-4ce8-8434-c5cfe47a9a1a" />
+![Check current weather](images/check-weather.png)
 
-**index.html (check current weather result)**
 
-<img width="1350" height="995" alt="image" src="https://github.com/user-attachments/assets/ebb94a7e-314c-4e2c-a3d9-78836fb70949" />
+**Current weather result**
 
-**forecast.html (forecast weather)**
+![Check current weather](images/weather-result.png)
 
-<img width="1343" height="999" alt="image" src="https://github.com/user-attachments/assets/5bffd9e1-a538-4f8c-9bba-4ad4c750554a" />
 
-**forecast.html (forecast weather date picker)**
+**Forecast weather**
 
-<img width="1337" height="987" alt="image" src="https://github.com/user-attachments/assets/f9195c0c-0358-42bb-9b0d-555b2d34ffdf" />
+![Check current weather](images/forecast-weather.png)
 
-**forecast.html (forecast weather result)**
 
-<img width="1344" height="991" alt="image" src="https://github.com/user-attachments/assets/89c70608-8016-4449-b3ce-8a8bcf067ff4" />
+**Weather forecast date picker**
 
+![Check current weather](images/date-picker.png)
+
+
+**Weather forecast result)**
+
+![Check current weather](images/weather-forecast-result.png)
 
 
 ## 📜 License
