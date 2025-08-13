@@ -2,7 +2,7 @@ const form = document.getElementById("weatherForm");
 const cityInput = document.getElementById("cityInput");
 const weatherDiv = document.getElementById("weather");
 
-const BACKEND_URL = "https://weather-api-proxy-zeta.vercel.app/api/weather";
+const BACKEND_URL = "https://weather-api-proxy-8dzt.vercel.app/api/weather";
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
