@@ -47,11 +47,11 @@ Prevents the API key from being exposed in client-side code.
 
 ## 📋 How It Works
 **Browser (GitHub Pages frontend)**  
-&nbsp;&nbsp;&nbsp;&nbsp;↓ request to `/api/weather`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ request to `/api/weather`  
 **Vercel Serverless Function** (`weather-api-proxy/`)  
-&nbsp;&nbsp;&nbsp;&nbsp;↓ attaches API key from environment  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ attaches API key from environment  
 **External Weather API**  
-&nbsp;&nbsp;&nbsp;&nbsp;↑ returns data to Vercel  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↑ returns data to Vercel  
 **Vercel → Browser**  
 
 
