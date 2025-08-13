@@ -28,8 +28,9 @@ weatherapp/
 │── README.md              # Documentation
 │
 ├── weather-api-proxy/     # Secure backend layer (Vercel serverless functions)
-│ ├── weather.js           # Current weather API endpoint
-│ └── forecast.js          # Weather forecast API endpoint
+│ └── api/                 # API endpoint folder
+│   ├── weather.js         # Current weather API endpoint
+│   └── forecast.js        # Weather forecast API endpoint
 │
 ├── js/                    # JavaScript logic (API calls, UI interaction)
 │ ├── weather.js           # Current weather logic
