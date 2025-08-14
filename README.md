@@ -53,7 +53,7 @@ The API key is stored securely in Vercel Environment Variables to revents the AP
 2. Click "Get Weather" or press Enter.
 3. View the current weather and 2-day forecast displayed on screen.
 
-## 📷 Screenshot
+## 📷 Screenshots
 
 **Check current weather**
 
