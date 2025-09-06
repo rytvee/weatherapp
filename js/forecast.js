@@ -8,12 +8,25 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
+// Function to set dynamic placeholder (MM/dd/YYYY)
+function setDynamicPlaceholder(input) {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // current month
+  const year = now.getFullYear(); // current year
+  input.setAttribute("placeholder", `${month}/dd/${year}`);
+}
+
+// Initialize placeholder
+setDynamicPlaceholder(dateInput);
+
+// Optional: update placeholder every minute (if month changes)
+setInterval(() => setDynamicPlaceholder(dateInput), 60000);
+
 // Mobile → remove chevron, show placeholder
 if (isMobile()) {
   dateInput.setAttribute("type", "text");
-  dateInput.setAttribute("placeholder", "09/dd/2025");
 
-  // Open native picker on focus
+  // Open native picker on focus (some mobile browsers support it)
   dateInput.addEventListener("focus", () => {
     if (dateInput.showPicker) {
       dateInput.showPicker();
@@ -21,13 +34,13 @@ if (isMobile()) {
   });
 } 
 
-// Calendar icon always triggers picker
+// Calendar icon triggers picker (if supported)
 calendarIcon.addEventListener("click", () => {
   try {
     if (dateInput.showPicker) {
-      dateInput.showPicker(); // Chrome/Edge/Safari
+      dateInput.showPicker();
     } else {
-      dateInput.click(); // fallback
+      dateInput.click();
     }
   } catch (err) {
     dateInput.click();
@@ -66,7 +79,6 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  // Replace with your actual Vercel URL
   const apiBaseUrl = "https://weather-api-proxy-8dzt.vercel.app";
 
   fetch(`${apiBaseUrl}/api/forecast?city=${encodeURIComponent(city)}&days=${daysAhead + 1}`)
