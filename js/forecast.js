@@ -8,32 +8,6 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-// Mobile → remove chevron, show placeholder
-if (isMobile()) {
-  dateInput.setAttribute("type", "text");
-  dateInput.setAttribute("placeholder", "09/dd/2025");
-
-  // Open native picker on focus
-  dateInput.addEventListener("focus", () => {
-    if (dateInput.showPicker) {
-      dateInput.showPicker();
-    }
-  });
-} 
-
-// Calendar icon always triggers picker
-calendarIcon.addEventListener("click", () => {
-  try {
-    if (dateInput.showPicker) {
-      dateInput.showPicker(); // Chrome/Edge/Safari
-    } else {
-      dateInput.click(); // fallback
-    }
-  } catch (err) {
-    dateInput.click();
-  }
-});
-
 // Set min/max date (next 3 days)
 const today = new Date();
 const maxDate = new Date();
@@ -45,6 +19,40 @@ function formatDate(date) {
 
 dateInput.min = formatDate(today);
 dateInput.max = formatDate(maxDate);
+
+let fp; // Flatpickr instance
+
+if (isMobile()) {
+  // Mobile → hide native picker, show placeholder, use Flatpickr
+  dateInput.setAttribute("type", "text");
+  dateInput.setAttribute("placeholder", "09/dd/2025");
+  dateInput.setAttribute("readonly", true); // prevent typing
+
+  fp = flatpickr(dateInput, {
+    minDate: today,
+    maxDate: maxDate,
+    dateFormat: "Y-m-d",
+    clickOpens: false, // open only on icon click
+  });
+
+  // Calendar icon triggers mobile picker
+  calendarIcon.addEventListener("click", () => {
+    fp.open();
+  });
+} else {
+  // Desktop → native picker opens on input or icon
+  calendarIcon.addEventListener("click", () => {
+    try {
+      if (dateInput.showPicker) {
+        dateInput.showPicker();
+      } else {
+        dateInput.click();
+      }
+    } catch (err) {
+      dateInput.click();
+    }
+  });
+}
 
 // Form submit handler
 form.addEventListener("submit", function (e) {
@@ -66,7 +74,6 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  // Replace with your actual Vercel URL
   const apiBaseUrl = "https://weather-api-proxy-8dzt.vercel.app";
 
   fetch(`${apiBaseUrl}/api/forecast?city=${encodeURIComponent(city)}&days=${daysAhead + 1}`)
