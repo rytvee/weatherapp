@@ -108,7 +108,7 @@ button:hover {
   color: #ffffff;
   text-decoration: none;
   transition: color 0.3s ease, text-decoration 0.3s ease;
-  display: inline-block;
+  align-self: center;
 }
 
 .link:hover {
