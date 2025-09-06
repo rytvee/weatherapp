@@ -13,16 +13,14 @@ const today = new Date();
 const maxDate = new Date();
 maxDate.setDate(today.getDate() + 2);
 
-// Format date as YYYY-MM-DD
 function formatDate(date) {
   return date.toISOString().split("T")[0];
 }
 
-// Set min/max attributes (desktop)
 dateInput.min = formatDate(today);
 dateInput.max = formatDate(maxDate);
 
-// Dynamic placeholder (MM/dd/YYYY)
+// Function to set dynamic placeholder (MM/dd/YYYY)
 function setDynamicPlaceholder(input) {
   const now = new Date();
   const month = String(now.getMonth() + 1).padStart(2, "0");
@@ -33,7 +31,6 @@ function setDynamicPlaceholder(input) {
 let fp; // Flatpickr instance
 
 if (isMobile()) {
-  // Mobile → use Flatpickr
   dateInput.setAttribute("type", "text");
   dateInput.setAttribute("readonly", true);
   setDynamicPlaceholder(dateInput);
@@ -42,25 +39,18 @@ if (isMobile()) {
     minDate: today,
     maxDate: maxDate,
     dateFormat: "Y-m-d",
-    clickOpens: false, // open only via icon
+    clickOpens: false
   });
 
-  // Open Flatpickr when icon clicked
   calendarIcon.addEventListener("click", () => fp.open());
-
 } else {
-  // Desktop → native picker
   dateInput.setAttribute("type", "date");
-
   calendarIcon.addEventListener("click", () => {
-    try {
-      if (dateInput.showPicker) dateInput.showPicker();
-      else dateInput.click();
-    } catch {
-      dateInput.click();
-    }
+    try { dateInput.showPicker ? dateInput.showPicker() : dateInput.click(); }
+    catch { dateInput.click(); }
   });
 }
+
 
 // Form submit handler
 form.addEventListener("submit", function (e) {
