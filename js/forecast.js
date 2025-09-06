@@ -8,18 +8,10 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-// Mobile → remove chevron, show placeholder
+// On mobile → just show placeholder manually (keep type="date" so dropdown works)
 if (isMobile()) {
-  dateInput.setAttribute("type", "text");
   dateInput.setAttribute("placeholder", "09/dd/2025");
-
-  // Open native picker on focus
-  dateInput.addEventListener("focus", () => {
-    if (dateInput.showPicker) {
-      dateInput.showPicker();
-    }
-  });
-} 
+}
 
 // Calendar icon always triggers picker
 calendarIcon.addEventListener("click", () => {
