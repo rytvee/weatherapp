@@ -33,6 +33,8 @@ function setDynamicPlaceholder(input) {
 let fp; // Flatpickr instance
 
 if (isMobile()) {
+  // Mobile → use Flatpickr
+  dateInput.setAttribute("type", "text");
   dateInput.setAttribute("readonly", true);
   setDynamicPlaceholder(dateInput);
 
@@ -40,13 +42,13 @@ if (isMobile()) {
     minDate: today,
     maxDate: maxDate,
     dateFormat: "Y-m-d",
-    clickOpens: false
+    clickOpens: false, // open only via icon
   });
 
   // Open Flatpickr when icon clicked
   calendarIcon.addEventListener("click", () => fp.open());
-}
- else {
+
+} else {
   // Desktop → native picker
   dateInput.setAttribute("type", "date");
 
