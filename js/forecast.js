@@ -8,29 +8,28 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-// Mobile → remove chevron, show placeholder
+// Mobile → show placeholder
 if (isMobile()) {
-  dateInput.setAttribute("type", "text");
   dateInput.setAttribute("placeholder", "09/dd/2025");
+}
 
-  // Open native picker on focus
-  dateInput.addEventListener("focus", () => {
-    if (dateInput.showPicker) {
-      dateInput.showPicker();
-    }
-  });
-} 
-
-// Calendar icon opens picker
+// 📅 icon opens picker
 calendarIcon.addEventListener("click", () => {
   try {
     if (dateInput.showPicker) {
-      dateInput.showPicker(); // Modern browsers
+      dateInput.showPicker(); // Chrome/Edge/Safari
     } else {
       dateInput.click(); // Fallback
     }
-  } catch (err) {
+  } catch {
     dateInput.click();
+  }
+});
+
+// Remove placeholder after picking a date
+dateInput.addEventListener("input", () => {
+  if (dateInput.value) {
+    dateInput.removeAttribute("placeholder");
   }
 });
 
