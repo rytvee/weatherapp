@@ -23,27 +23,27 @@ document.addEventListener("DOMContentLoaded", () => {
     input.setAttribute("placeholder", `${month}/dd/${year}`);
   }
 
-  // Always initialize placeholder
+  // Initialize placeholder
   setDynamicPlaceholder(dateInput);
   setInterval(() => setDynamicPlaceholder(dateInput), 60000);
 
   if (isMobile()) {
-    // Mobile → use Flatpickr
-    dateInput.setAttribute("type", "text"); // important for Flatpickr
-    dateInput.setAttribute("readonly", true); // prevent typing
+    dateInput.setAttribute("type", "text");
+    dateInput.setAttribute("readonly", true);
 
+    // Initialize Flatpickr
     const fp = flatpickr(dateInput, {
       minDate: today,
       maxDate: maxDate,
       dateFormat: "Y-m-d",
       allowInput: false,
+      clickOpens: false // IMPORTANT: only open via icon
     });
 
-    // Only open Flatpickr on calendar icon click
+    // Open Flatpickr on calendar icon click
     calendarIcon.addEventListener("click", () => fp.open());
 
   } else {
-    // Desktop → native picker
     dateInput.setAttribute("type", "date");
     dateInput.min = formatDate(today);
     dateInput.max = formatDate(maxDate);
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!city || !targetDate) return;
 
     const selected = new Date(targetDate);
-    const daysAhead = Math.ceil((selected - new Date()) / (1000 * 60 * 60 * 24));
+    const daysAhead = Math.ceil((selected - new Date()) / (1000*60*60*24));
 
     if (daysAhead < 0 || daysAhead > 2) {
       weatherDiv.innerHTML = `<p style="color:red;">Please choose a date within the next 3 days.</p>`;
