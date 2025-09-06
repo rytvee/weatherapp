@@ -3,19 +3,17 @@ const weatherDiv = document.getElementById("weather");
 const dateInput = document.getElementById("dateInput");
 const calendarIcon = document.getElementById("calendarIcon");
 
-// Function to set dynamic placeholder (MM/dd/YYYY)
+// Set dynamic placeholder MM/dd/YYYY
 function setDynamicPlaceholder(input) {
   const now = new Date();
-  const month = String(now.getMonth() + 1).padStart(2, "0"); // current month
-  const year = now.getFullYear(); // current year
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const year = now.getFullYear();
   input.setAttribute("placeholder", `${month}/dd/${year}`);
 }
-
-// Initialize placeholder
 setDynamicPlaceholder(dateInput);
 setInterval(() => setDynamicPlaceholder(dateInput), 60000);
 
-// Set min/max date (next 3 days)
+// Min/max dates
 const today = new Date();
 const maxDate = new Date();
 maxDate.setDate(today.getDate() + 2);
@@ -24,51 +22,21 @@ function formatDate(date) {
   return date.toISOString().split("T")[0];
 }
 
-let fp; // Flatpickr instance
+// Initialize Flatpickr
+const fp = flatpickr(dateInput, {
+  minDate: today,
+  maxDate: maxDate,
+  dateFormat: "Y-m-d",
+  allowInput: true,
+  clickOpens: false // only open on calendar icon click
+});
 
-// Use Flatpickr for mobile devices
-function isMobile() {
-  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
-
-if (isMobile()) {
-  dateInput.setAttribute("type", "text"); // keep placeholder visible
-  dateInput.setAttribute("readonly", true); // prevent typing
-
-  // Initialize Flatpickr
-  fp = flatpickr(dateInput, {
-    minDate: today,
-    maxDate: maxDate,
-    dateFormat: "Y-m-d",
-    allowInput: true, // allows typing if needed
-    clickOpens: false // only open on icon click
-  });
-
-  // Open Flatpickr when calendar icon is clicked
-  calendarIcon.addEventListener("click", () => {
-    fp.open();
-  });
-
-} else {
-  // Desktop → native picker
-  dateInput.setAttribute("type", "date");
-  dateInput.min = formatDate(today);
-  dateInput.max = formatDate(maxDate);
-
-  calendarIcon.addEventListener("click", () => {
-    try {
-      if (dateInput.showPicker) dateInput.showPicker();
-      else dateInput.click();
-    } catch {
-      dateInput.click();
-    }
-  });
-}
+// Open Flatpickr on icon click
+calendarIcon.addEventListener("click", () => fp.open());
 
 // Form submit handler
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-
   const city = document.getElementById("cityInput").value.trim();
   const targetDate = dateInput.value;
   weatherDiv.style.display = "none";
