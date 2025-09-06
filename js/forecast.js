@@ -8,18 +8,26 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-// On mobile → just show placeholder manually (keep type="date" so dropdown works)
+// Mobile → remove chevron, show placeholder
 if (isMobile()) {
+  dateInput.setAttribute("type", "text");
   dateInput.setAttribute("placeholder", "09/dd/2025");
-}
 
-// Calendar icon always triggers picker
+  // Open native picker on focus
+  dateInput.addEventListener("focus", () => {
+    if (dateInput.showPicker) {
+      dateInput.showPicker();
+    }
+  });
+} 
+
+// Calendar icon opens picker
 calendarIcon.addEventListener("click", () => {
   try {
     if (dateInput.showPicker) {
-      dateInput.showPicker(); // Chrome/Edge/Safari
+      dateInput.showPicker(); // Modern browsers
     } else {
-      dateInput.click(); // fallback
+      dateInput.click(); // Fallback
     }
   } catch (err) {
     dateInput.click();
