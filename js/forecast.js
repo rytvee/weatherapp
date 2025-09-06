@@ -3,14 +3,20 @@ const weatherDiv = document.getElementById("weather");
 const dateInput = document.getElementById("dateInput");
 const calendarIcon = document.getElementById("calendarIcon");
 
-// Dynamic placeholder
-function setDynamicPlaceholder(input) {
+// Detect mobile
+function isMobile() {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+// Dynamic placeholder (MM/dd/YYYY)
+function setDynamicPlaceholder() {
   const now = new Date();
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const year = now.getFullYear();
-  input.setAttribute("placeholder", `${month}/dd/${year}`);
+  dateInput.setAttribute("placeholder", `${month}/dd/${year}`);
 }
-setDynamicPlaceholder(dateInput);
+setDynamicPlaceholder();
+setInterval(setDynamicPlaceholder, 60000); // update if month changes
 
 // Min/max date
 const today = new Date();
@@ -23,14 +29,19 @@ const fp = flatpickr(dateInput, {
   maxDate: maxDate,
   dateFormat: "Y-m-d",
   allowInput: true,
-  clickOpens: false // prevents auto-opening on focus
+  clickOpens: false, // only open via icon
 });
 
-// Open on calendar icon click
+// Open on icon click
 calendarIcon.addEventListener("click", () => fp.open());
 
-// Form submit handler
-form.addEventListener("submit", function (e) {
+// Keep placeholder if input cleared
+dateInput.addEventListener("blur", () => {
+  if (!dateInput.value) setDynamicPlaceholder();
+});
+
+// Form submit
+form.addEventListener("submit", function(e) {
   e.preventDefault();
   const city = document.getElementById("cityInput").value.trim();
   const targetDate = dateInput.value;
@@ -48,15 +59,10 @@ form.addEventListener("submit", function (e) {
   }
 
   const apiBaseUrl = "https://weather-api-proxy-8dzt.vercel.app";
-
   fetch(`${apiBaseUrl}/api/forecast?city=${encodeURIComponent(city)}&days=${daysAhead + 1}`)
-    .then(res => {
-      if (!res.ok) throw new Error("Failed to fetch forecast");
-      return res.json();
-    })
+    .then(res => res.ok ? res.json() : Promise.reject("Failed to fetch forecast"))
     .then(data => {
       const dayData = data.forecast.forecastday.find(day => day.date === targetDate);
-
       if (!dayData) {
         weatherDiv.innerHTML = `<p style="color:red;">No forecast available for the selected date.</p>`;
         weatherDiv.style.display = "inline-block";
@@ -76,8 +82,8 @@ form.addEventListener("submit", function (e) {
       weatherDiv.style.display = "block";
     })
     .catch(err => {
-      console.error("Error:", err);
-      weatherDiv.innerHTML = `<p style="color:red;">${err.message}</p>`;
+      console.error(err);
+      weatherDiv.innerHTML = `<p style="color:red;">${err}</p>`;
       weatherDiv.style.display = "block";
     });
 });
