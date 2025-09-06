@@ -8,6 +8,32 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
+// Mobile → remove chevron, show placeholder
+if (isMobile()) {
+  dateInput.setAttribute("type", "text");
+  dateInput.setAttribute("placeholder", "09/dd/2025");
+
+  // Open native picker on focus
+  dateInput.addEventListener("focus", () => {
+    if (dateInput.showPicker) {
+      dateInput.showPicker();
+    }
+  });
+} 
+
+// Calendar icon always triggers picker
+calendarIcon.addEventListener("click", () => {
+  try {
+    if (dateInput.showPicker) {
+      dateInput.showPicker(); // Chrome/Edge/Safari
+    } else {
+      dateInput.click(); // fallback
+    }
+  } catch (err) {
+    dateInput.click();
+  }
+});
+
 // Set min/max date (next 3 days)
 const today = new Date();
 const maxDate = new Date();
@@ -20,41 +46,10 @@ function formatDate(date) {
 dateInput.min = formatDate(today);
 dateInput.max = formatDate(maxDate);
 
-// Function to set dynamic placeholder (MM/dd/YYYY)
-function setDynamicPlaceholder(input) {
-  const now = new Date();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const year = now.getFullYear();
-  input.setAttribute("placeholder", `${month}/dd/${year}`);
-}
-
-let fp; // Flatpickr instance
-
-if (isMobile()) {
-  dateInput.setAttribute("type", "text");
-  dateInput.setAttribute("readonly", true);
-  setDynamicPlaceholder(dateInput);
-
-  fp = flatpickr(dateInput, {
-    minDate: today,
-    maxDate: maxDate,
-    dateFormat: "Y-m-d",
-    clickOpens: false
-  });
-
-  calendarIcon.addEventListener("click", () => fp.open());
-} else {
-  dateInput.setAttribute("type", "date");
-  calendarIcon.addEventListener("click", () => {
-    try { dateInput.showPicker ? dateInput.showPicker() : dateInput.click(); }
-    catch { dateInput.click(); }
-  });
-}
-
-
 // Form submit handler
 form.addEventListener("submit", function (e) {
   e.preventDefault();
+
   const city = document.getElementById("cityInput").value.trim();
   const targetDate = dateInput.value;
   weatherDiv.style.display = "none";
@@ -71,6 +66,7 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
+  // Replace with your actual Vercel URL
   const apiBaseUrl = "https://weather-api-proxy-8dzt.vercel.app";
 
   fetch(`${apiBaseUrl}/api/forecast?city=${encodeURIComponent(city)}&days=${daysAhead + 1}`)
