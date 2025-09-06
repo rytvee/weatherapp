@@ -1,3 +1,4 @@
+
 const form = document.getElementById("weatherForm"); 
 const weatherDiv = document.getElementById("weather");
 const dateInput = document.getElementById("dateInput");
