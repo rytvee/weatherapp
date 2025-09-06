@@ -1,31 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weather App | Forecast Weather</title>
-  <link rel="icon" href="images/favicon.ico">
-  <link rel="stylesheet" href="styles.css">
-  <link  rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-</head>
-<body>
-  <h1>Forecast Weather</h1>
-  <form id="weatherForm">
-    <input type="text" id="cityInput" placeholder="Enter city" required />
-    <div class="date-wrapper">
-      <input type="date" id="dateInput" placeholder="Select date" />
-      <i class="fa fa-calendar-days custom-calendar-icon" id="calendarIcon"></i>
-  </div>
-    <button type="submit">Forecast</button>
-  </form>
+const form = document.getElementById("weatherForm");
+const weatherDiv = document.getElementById("weather");
+const dateInput = document.getElementById("dateInput");
+const calendarIcon = document.getElementById("calendarIcon");
 
-  <div id="weather"></div>
-  <a class="link" href="index.html">Check Current Weather</a>
+// Detect mobile devices
+function isMobile() {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
 
-  <script src="js/forecast.js"></script>
-</body>
-</html>
+// Set min/max date (next 3 days)
+const today = new Date();
+const maxDate = new Date();
+maxDate.setDate(today.getDate() + 2);
+
+// Format date as YYYY-MM-DD
+function formatDate(date) {
+  return date.toISOString().split("T")[0];
+}
+
+// Set min/max attributes (desktop)
+dateInput.min = formatDate(today);
+dateInput.max = formatDate(maxDate);
+
+// Dynamic placeholder (MM/dd/YYYY)
+function setDynamicPlaceholder(input) {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const year = now.getFullYear();
+  input.setAttribute("placeholder", `${month}/dd/${year}`);
+}
+
+let fp; // Flatpickr instance
+
+if (isMobile()) {
+  // Mobile → use Flatpickr
+  dateInput.setAttribute("type", "text");
+  dateInput.setAttribute("readonly", true);
+  setDynamicPlaceholder(dateInput);
+
+  fp = flatpickr(dateInput, {
+    minDate: today,
+    maxDate: maxDate,
+    dateFormat: "Y-m-d",
+    clickOpens: false, // open only via icon
+  });
+
+  // Open Flatpickr when icon clicked
+  calendarIcon.addEventListener("click", () => fp.open());
+
+} else {
+  // Desktop → native picker
+  dateInput.setAttribute("type", "date");
+
+  calendarIcon.addEventListener("click", () => {
+    try {
+      if (dateInput.showPicker) dateInput.showPicker();
+      else dateInput.click();
+    } catch {
+      dateInput.click();
+    }
+  });
+}
+
+// Form submit handler
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const city = document.getElementById("cityInput").value.trim();
+  const targetDate = dateInput.value;
+  weatherDiv.style.display = "none";
+
+  if (!city || !targetDate) return;
+
+  const selected = new Date(targetDate);
+  const diffTime = selected.getTime() - new Date().getTime();
+  const daysAhead = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  if (daysAhead < 0 || daysAhead > 2) {
+    weatherDiv.innerHTML = `<p style="color:red;">Please choose a date within the next 3 days.</p>`;
+    weatherDiv.style.display = "block";
+    return;
+  }
+
+  const apiBaseUrl = "https://weather-api-proxy-8dzt.vercel.app";
+
+  fetch(`${apiBaseUrl}/api/forecast?city=${encodeURIComponent(city)}&days=${daysAhead + 1}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to fetch forecast");
+      return res.json();
+    })
+    .then(data => {
+      const dayData = data.forecast.forecastday.find(day => day.date === targetDate);
+
+      if (!dayData) {
+        weatherDiv.innerHTML = `<p style="color:red;">No forecast available for the selected date.</p>`;
+        weatherDiv.style.display = "inline-block";
+        return;
+      }
+
+      weatherDiv.innerHTML = `
+        <h2>${data.location.name}, ${data.location.country}</h2>
+        <h3>${dayData.date}</h3>
+        <img src="https:${dayData.day.condition.icon}" 
+             alt="${dayData.day.condition.text}" 
+             onerror="this.style.display='none'">
+        <p><strong>Condition:</strong> ${dayData.day.condition.text}</p>
+        <p><strong>Max Temp:</strong> ${dayData.day.maxtemp_c}°C</p>
+        <p><strong>Min Temp:</strong> ${dayData.day.mintemp_c}°C</p>
+      `;
+      weatherDiv.style.display = "block";
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      weatherDiv.innerHTML = `<p style="color:red;">${err.message}</p>`;
+      weatherDiv.style.display = "block";
+    });
+});
