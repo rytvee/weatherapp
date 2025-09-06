@@ -1,39 +1,39 @@
 const form = document.getElementById("weatherForm");
 const weatherDiv = document.getElementById("weather");
 const dateInput = document.getElementById("dateInput");
-const dateWrapper = document.querySelector(".date-wrapper"); // wrapper
+const calendarIcon = document.getElementById("calendarIcon");
 
-// Check if native placeholder is shown
-function needsCustomPlaceholder() {
-  // Chrome/Edge return "text" if date is unsupported
-  const test = document.createElement("input");
-  test.setAttribute("type", "date");
-  return test.type !== "date"; // true if no native date UI
+// Detect mobile devices
+function isMobile() {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-// Generate placeholder like "09/dd/2025"
-function setDynamicPlaceholder() {
-  const now = new Date();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const year = now.getFullYear();
-  const placeholder = `${month}/dd/${year}`;
-  dateWrapper.setAttribute("data-placeholder", placeholder);
+// Mobile → show placeholder
+if (isMobile()) {
+  dateInput.setAttribute("placeholder", "09/dd/2025");
 }
 
-// Only add custom placeholder if browser does not show native one
-if (needsCustomPlaceholder()) {
-  setDynamicPlaceholder();
-
-  dateInput.addEventListener("input", () => {
-    if (dateInput.value) {
-      dateWrapper.classList.add("has-value");
+// icon opens picker
+calendarIcon.addEventListener("click", () => {
+  try {
+    if (dateInput.showPicker) {
+      dateInput.showPicker(); // Chrome/Edge/Safari
     } else {
-      dateWrapper.classList.remove("has-value");
+      dateInput.click(); // Fallback
     }
-  });
-}
+  } catch {
+    dateInput.click();
+  }
+});
 
-// --- Min/max date (next 3 days) ---
+// Remove placeholder after picking a date
+dateInput.addEventListener("input", () => {
+  if (dateInput.value) {
+    dateInput.removeAttribute("placeholder");
+  }
+});
+
+// Set min/max date (next 3 days)
 const today = new Date();
 const maxDate = new Date();
 maxDate.setDate(today.getDate() + 2);
@@ -45,7 +45,7 @@ function formatDate(date) {
 dateInput.min = formatDate(today);
 dateInput.max = formatDate(maxDate);
 
-// --- Form submission handler ---
+// Form submit handler
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
