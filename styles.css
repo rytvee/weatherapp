@@ -146,10 +146,6 @@ button:hover {
   color: #f0f0f0;
 }
 
-.link:active, #calendarIcon {
-  background: none;
-}
-
 @media (max-width: 600px) {
   input[type="date"]::placeholder {
     color: #999;
