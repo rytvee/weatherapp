@@ -3,65 +3,55 @@ const weatherDiv = document.getElementById("weather");
 const dateInput = document.getElementById("dateInput");
 const calendarIcon = document.getElementById("calendarIcon");
 
-const dateWrapper = document.querySelector(".date-wrapper");
-
-// Check if placeholder works on input[type=date]
-function supportsDatePlaceholder() {
-  const test = document.createElement("input");
-  test.setAttribute("type", "date");
-  test.setAttribute("placeholder", "test");
-  return test.placeholder === "test"; // true if browser respects placeholder
+// Detect mobile devices
+function isMobile() {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-if (!supportsDatePlaceholder()) {
-  // Mobile case → use fake placeholder
-  function toggleFakePlaceholder() {
-    if (!dateInput.value) {
-      dateWrapper.setAttribute("data-placeholder", "09/dd/2025");
-    } else {
-      dateWrapper.removeAttribute("data-placeholder");
+// Mobile → remove chevron, show placeholder
+if (isMobile()) {
+  dateInput.setAttribute("type", "text");
+  dateInput.setAttribute("placeholder", "09/dd/2025");
+
+  // Open native picker on focus
+  dateInput.addEventListener("focus", () => {
+    if (dateInput.showPicker) {
+      dateInput.showPicker();
     }
-  }
+  });
+} 
 
-  toggleFakePlaceholder();
-  dateInput.addEventListener("input", toggleFakePlaceholder);
-}
-
-// Show native date picker when calendar icon is clicked
+// Calendar icon always triggers picker
 calendarIcon.addEventListener("click", () => {
   try {
     if (dateInput.showPicker) {
-      dateInput.showPicker(); // Chromium, HTTPS
+      dateInput.showPicker(); // Chrome/Edge/Safari
     } else {
-      dateInput.click(); // Better fallback than just focus()
+      dateInput.click(); // fallback
     }
   } catch (err) {
     dateInput.click();
   }
 });
 
-
-
-
-
-// Set min/max date for input (next 3 days)
+// Set min/max date (next 3 days)
 const today = new Date();
 const maxDate = new Date();
 maxDate.setDate(today.getDate() + 2);
 
 function formatDate(date) {
-  return date.toISOString().split('T')[0];
+  return date.toISOString().split("T")[0];
 }
 
 dateInput.min = formatDate(today);
 dateInput.max = formatDate(maxDate);
 
-// Form submission handler
+// Form submit handler
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const city = document.getElementById("cityInput").value.trim();
-  const targetDate = document.getElementById("dateInput").value;
+  const targetDate = dateInput.value;
   weatherDiv.style.display = "none";
 
   if (!city || !targetDate) return;
@@ -71,7 +61,7 @@ form.addEventListener("submit", function (e) {
   const daysAhead = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   if (daysAhead < 0 || daysAhead > 2) {
-    weatherDiv.innerHTML = `<p style="color:red;">Please choose a date within the next 3s days.</p>`;
+    weatherDiv.innerHTML = `<p style="color:red;">Please choose a date within the next 3 days.</p>`;
     weatherDiv.style.display = "block";
     return;
   }
