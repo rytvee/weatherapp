@@ -1,3 +1,4 @@
+const form = document.getElementById("weatherForm");
 const weatherDiv = document.getElementById("weather");
 const dateInput = document.getElementById("dateInput");
 const calendarIcon = document.getElementById("calendarIcon");
@@ -7,48 +8,65 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-// Mobile → remove chevron, show placeholder
-if (isMobile()) {
-  dateInput.setAttribute("type", "text");
-  dateInput.setAttribute("placeholder", "09/dd/2025");
-
-  // Open native picker on focus
-  dateInput.addEventListener("focus", () => {
-    if (dateInput.showPicker) {
-      dateInput.showPicker();
-    }
-  });
-} 
-
-// Calendar icon always triggers picker
-calendarIcon.addEventListener("click", () => {
-  try {
-    if (dateInput.showPicker) {
-      dateInput.showPicker(); // Chrome/Edge/Safari
-    } else {
-      dateInput.click(); // fallback
-    }
-  } catch (err) {
-    dateInput.click();
-  }
-});
-
 // Set min/max date (next 3 days)
 const today = new Date();
 const maxDate = new Date();
 maxDate.setDate(today.getDate() + 2);
 
+// Format date as YYYY-MM-DD
 function formatDate(date) {
   return date.toISOString().split("T")[0];
 }
 
-dateInput.min = formatDate(today);
-dateInput.max = formatDate(maxDate);
+// Dynamic placeholder (MM/dd/YYYY)
+function setDynamicPlaceholder(input) {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const year = now.getFullYear();
+  input.setAttribute("placeholder", `${month}/dd/${year}`);
+}
+
+// Set placeholder initially
+setDynamicPlaceholder(dateInput);
+
+// Optional: Update placeholder every minute in case month changes
+setInterval(() => setDynamicPlaceholder(dateInput), 60000);
+
+let fp; // Flatpickr instance
+
+if (isMobile()) {
+  dateInput.setAttribute("readonly", true); // prevent typing
+
+  // Initialize Flatpickr for mobile
+  fp = flatpickr(dateInput, {
+    minDate: today,
+    maxDate: maxDate,
+    dateFormat: "Y-m-d",
+    clickOpens: false
+  });
+
+  // Open Flatpickr when icon is clicked
+  calendarIcon.addEventListener("click", () => fp.open());
+
+} else {
+  // Desktop: native date picker
+  dateInput.setAttribute("type", "date");
+  dateInput.min = formatDate(today);
+  dateInput.max = formatDate(maxDate);
+
+  calendarIcon.addEventListener("click", () => {
+    try {
+      if (dateInput.showPicker) dateInput.showPicker();
+      else dateInput.click();
+    } catch {
+      dateInput.click();
+    }
+  });
+}
 
 // Form submit handler
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-
   const city = document.getElementById("cityInput").value.trim();
   const targetDate = dateInput.value;
   weatherDiv.style.display = "none";
@@ -65,7 +83,6 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  // Replace with your actual Vercel URL
   const apiBaseUrl = "https://weather-api-proxy-8dzt.vercel.app";
 
   fetch(`${apiBaseUrl}/api/forecast?city=${encodeURIComponent(city)}&days=${daysAhead + 1}`)
