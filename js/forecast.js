@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const dateInput = document.getElementById("dateInput");
   const calendarIcon = document.getElementById("calendarIcon");
 
-  function isMobile() {
-    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  }
-
   const today = new Date();
   const maxDate = new Date();
   maxDate.setDate(today.getDate() + 2);
+
+  function isMobile() {
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  }
 
   function formatDate(date) {
     return date.toISOString().split("T")[0]; // YYYY-MM-DD
@@ -23,29 +23,27 @@ document.addEventListener("DOMContentLoaded", () => {
     input.setAttribute("placeholder", `${month}/dd/${year}`);
   }
 
+  // Always initialize placeholder
   setDynamicPlaceholder(dateInput);
   setInterval(() => setDynamicPlaceholder(dateInput), 60000);
 
-  let fp;
-
   if (isMobile()) {
-    // Change input to text for Flatpickr on mobile
-    dateInput.setAttribute("type", "text");
-    dateInput.setAttribute("readonly", true);
+    // Mobile → use Flatpickr
+    dateInput.setAttribute("type", "text"); // important for Flatpickr
+    dateInput.setAttribute("readonly", true); // prevent typing
 
-    // Initialize Flatpickr
-    fp = flatpickr(dateInput, {
+    const fp = flatpickr(dateInput, {
       minDate: today,
       maxDate: maxDate,
       dateFormat: "Y-m-d",
       allowInput: false,
     });
 
-    // Open Flatpickr only when icon clicked
+    // Only open Flatpickr on calendar icon click
     calendarIcon.addEventListener("click", () => fp.open());
 
   } else {
-    // Desktop: native date picker
+    // Desktop → native picker
     dateInput.setAttribute("type", "date");
     dateInput.min = formatDate(today);
     dateInput.max = formatDate(maxDate);
@@ -70,8 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!city || !targetDate) return;
 
     const selected = new Date(targetDate);
-    const diffTime = selected.getTime() - new Date().getTime();
-    const daysAhead = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const daysAhead = Math.ceil((selected - new Date()) / (1000 * 60 * 60 * 24));
 
     if (daysAhead < 0 || daysAhead > 2) {
       weatherDiv.innerHTML = `<p style="color:red;">Please choose a date within the next 3 days.</p>`;
@@ -100,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         weatherDiv.style.display = "block";
       })
       .catch(err => {
-        console.error("Error:", err);
+        console.error(err);
         weatherDiv.innerHTML = `<p style="color:red;">${err}</p>`;
         weatherDiv.style.display = "block";
       });
