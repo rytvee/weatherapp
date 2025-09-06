@@ -3,18 +3,45 @@ const weatherDiv = document.getElementById("weather");
 const dateInput = document.getElementById("dateInput");
 const calendarIcon = document.getElementById("calendarIcon");
 
+const dateWrapper = document.querySelector(".date-wrapper");
+
+// Check if placeholder works on input[type=date]
+function supportsDatePlaceholder() {
+  const test = document.createElement("input");
+  test.setAttribute("type", "date");
+  test.setAttribute("placeholder", "test");
+  return test.placeholder === "test"; // true if browser respects placeholder
+}
+
+if (!supportsDatePlaceholder()) {
+  // Mobile case → use fake placeholder
+  function toggleFakePlaceholder() {
+    if (!dateInput.value) {
+      dateWrapper.setAttribute("data-placeholder", "09/dd/2025");
+    } else {
+      dateWrapper.removeAttribute("data-placeholder");
+    }
+  }
+
+  toggleFakePlaceholder();
+  dateInput.addEventListener("input", toggleFakePlaceholder);
+}
+
 // Show native date picker when calendar icon is clicked
 calendarIcon.addEventListener("click", () => {
   try {
     if (dateInput.showPicker) {
-      dateInput.showPicker(); // Supported browsers (on secure origin)
+      dateInput.showPicker(); // Chromium, HTTPS
     } else {
-      dateInput.focus(); // Fallback
+      dateInput.click(); // Better fallback than just focus()
     }
   } catch (err) {
-    dateInput.focus(); // In case of security errors
+    dateInput.click();
   }
 });
+
+
+
 
 
 // Set min/max date for input (next 3 days)
@@ -44,12 +71,12 @@ form.addEventListener("submit", function (e) {
   const daysAhead = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   if (daysAhead < 0 || daysAhead > 2) {
-    weatherDiv.innerHTML = `<p style="color:red;">Please choose a date within the next 10 days.</p>`;
+    weatherDiv.innerHTML = `<p style="color:red;">Please choose a date within the next 3s days.</p>`;
     weatherDiv.style.display = "block";
     return;
   }
 
-  // .env file Vercel URL
+  // Replace with your actual Vercel URL
   const apiBaseUrl = "https://weather-api-proxy-8dzt.vercel.app";
 
   fetch(`${apiBaseUrl}/api/forecast?city=${encodeURIComponent(city)}&days=${daysAhead + 1}`)
