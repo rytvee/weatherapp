@@ -20,27 +20,33 @@ function formatDate(date) {
 dateInput.min = formatDate(today);
 dateInput.max = formatDate(maxDate);
 
+// Function to set dynamic placeholder (MM/dd/YYYY)
+function setDynamicPlaceholder(input) {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const year = now.getFullYear();
+  input.setAttribute("placeholder", `${month}/dd/${year}`);
+}
+
 let fp; // Flatpickr instance
 
 if (isMobile()) {
-  // Mobile → hide native picker, show placeholder, use Flatpickr
+  // Mobile → hide native picker, show dynamic placeholder, use Flatpickr
   dateInput.setAttribute("type", "text");
-  dateInput.setAttribute("placeholder", "09/dd/2025");
   dateInput.setAttribute("readonly", true); // prevent typing
+  setDynamicPlaceholder(dateInput);
 
   fp = flatpickr(dateInput, {
     minDate: today,
     maxDate: maxDate,
     dateFormat: "Y-m-d",
-    clickOpens: false, // open only on icon click
+    clickOpens: false, // only open on icon click
   });
 
-  // Calendar icon triggers mobile picker
-  calendarIcon.addEventListener("click", () => {
-    fp.open();
-  });
+  // Open Flatpickr on icon click
+  calendarIcon.addEventListener("click", () => fp.open());
 } else {
-  // Desktop → native picker opens on input or icon
+  // Desktop → native picker, icon triggers showPicker
   calendarIcon.addEventListener("click", () => {
     try {
       if (dateInput.showPicker) {
@@ -48,7 +54,7 @@ if (isMobile()) {
       } else {
         dateInput.click();
       }
-    } catch (err) {
+    } catch {
       dateInput.click();
     }
   });
@@ -57,7 +63,6 @@ if (isMobile()) {
 // Form submit handler
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-
   const city = document.getElementById("cityInput").value.trim();
   const targetDate = dateInput.value;
   weatherDiv.style.display = "none";
