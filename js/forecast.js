@@ -3,7 +3,7 @@ const weatherDiv = document.getElementById("weather");
 const dateInput = document.getElementById("dateInput");
 const calendarIcon = document.getElementById("calendarIcon");
 
-// Set dynamic placeholder MM/dd/YYYY
+// Dynamic placeholder
 function setDynamicPlaceholder(input) {
   const now = new Date();
   const month = String(now.getMonth() + 1).padStart(2, "0");
@@ -11,16 +11,11 @@ function setDynamicPlaceholder(input) {
   input.setAttribute("placeholder", `${month}/dd/${year}`);
 }
 setDynamicPlaceholder(dateInput);
-setInterval(() => setDynamicPlaceholder(dateInput), 60000);
 
-// Min/max dates
+// Min/max date
 const today = new Date();
 const maxDate = new Date();
 maxDate.setDate(today.getDate() + 2);
-
-function formatDate(date) {
-  return date.toISOString().split("T")[0];
-}
 
 // Initialize Flatpickr
 const fp = flatpickr(dateInput, {
@@ -28,10 +23,10 @@ const fp = flatpickr(dateInput, {
   maxDate: maxDate,
   dateFormat: "Y-m-d",
   allowInput: true,
-  clickOpens: false // only open on calendar icon click
+  clickOpens: false // prevents auto-opening on focus
 });
 
-// Open Flatpickr on icon click
+// Open on calendar icon click
 calendarIcon.addEventListener("click", () => fp.open());
 
 // Form submit handler
