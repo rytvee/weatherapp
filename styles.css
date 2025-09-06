@@ -85,6 +85,12 @@ input[type="date"]::-moz-calendar-picker-indicator {
   display: none;
 }
 
+/* Faltpickr for Mobile */
+.flatpickr-calendar {
+  z-index: 9999 !important;
+}
+
+
 /* Custom calendar icon */
 .custom-calendar-icon {
   position: absolute;
