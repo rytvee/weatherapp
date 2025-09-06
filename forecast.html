@@ -9,13 +9,15 @@
   <link  rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
   <h1>Forecast Weather</h1>
   <form id="weatherForm">
     <input type="text" id="cityInput" placeholder="Enter city" required />
     <div class="date-wrapper">
-      <input type="date" id="dateInput" />
+      <input type="text" id="dateInput" placeholder="MM/dd/YYYY" />
       <i class="fa fa-calendar-days custom-calendar-icon" id="calendarIcon"></i>
   </div>
     <button type="submit">Forecast</button>
