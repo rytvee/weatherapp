@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   maxDate.setDate(today.getDate() + 2);
 
   function formatDate(date) {
-    return date.toISOString().split("T")[0];
+    return date.toISOString().split("T")[0]; // YYYY-MM-DD
   }
 
   function setDynamicPlaceholder(input) {
@@ -29,10 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let fp;
 
   if (isMobile()) {
-    // Mobile → use Flatpickr
+    // Change input to text for Flatpickr on mobile
     dateInput.setAttribute("type", "text");
     dateInput.setAttribute("readonly", true);
 
+    // Initialize Flatpickr
     fp = flatpickr(dateInput, {
       minDate: today,
       maxDate: maxDate,
@@ -40,13 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
       allowInput: false,
     });
 
-    // Open calendar only when icon clicked
-    calendarIcon.addEventListener("click", () => {
-      fp.open();
-    });
+    // Open Flatpickr only when icon clicked
+    calendarIcon.addEventListener("click", () => fp.open());
 
   } else {
-    // Desktop → native picker
+    // Desktop: native date picker
     dateInput.setAttribute("type", "date");
     dateInput.min = formatDate(today);
     dateInput.max = formatDate(maxDate);
@@ -61,8 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Form submission
-  form.addEventListener("submit", e => {
+  // Form submit
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
     const city = document.getElementById("cityInput").value.trim();
     const targetDate = dateInput.value;
@@ -101,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         weatherDiv.style.display = "block";
       })
       .catch(err => {
+        console.error("Error:", err);
         weatherDiv.innerHTML = `<p style="color:red;">${err}</p>`;
         weatherDiv.style.display = "block";
       });
