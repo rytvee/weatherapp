@@ -55,7 +55,7 @@ button {
   font-size: 16px;
 }
 
-.has-value + #datePlaceholder {
+.date-wrapper.has-value #datePlaceholder {
   display: none;
 }
 
