@@ -101,7 +101,7 @@ input[type="date"]::placeholder {
 /* Custom calendar icon */
 .custom-calendar-icon {
   position: absolute;
-  right: 5px;
+  right: ;
   top: 45%;
   transform: translateY(-50%);
   cursor: pointer;
