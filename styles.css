@@ -59,9 +59,7 @@ button {
   display: none;
 }
 
-/* ✅ Completely hide native dropdown arrows */
-
-/* Chrome, Safari, Edge */
+/* Hide native dropdown arrows for Chrome, Safari, Edge */
 input[type="date"]::-webkit-calendar-picker-indicator {
   display: none !important;
   -webkit-appearance: none !important;
@@ -74,7 +72,7 @@ input[type="date"]::-webkit-clear-button {
   display: none !important;
 }
 
-/* Firefox */
+/* Hide native dropdown arrows for Firefox */
 input[type="date"]::-moz-calendar-picker-indicator {
   display: none !important;
 }
@@ -82,15 +80,15 @@ input[type="date"]::-moz-calendar-picker-indicator {
 /* Normalize placeholder on desktop */
 input[type="date"]::placeholder {
   text-align: left;
-  transform: none;   /* ✅ removes vertical centering */
+  transform: none;   /* removes vertical centering */
   opacity: 0.7;
 }
 
 /* Custom calendar icon */
 .custom-calendar-icon {
   position: absolute;
-  right: 10px;
-  top: 50%;          /* ✅ consistent vertical centering */
+  right: 5px;
+  top: 50%;          /* consistent vertical centering */
   transform: translateY(-50%);
   cursor: pointer;
   color: gray;
