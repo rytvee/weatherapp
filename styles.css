@@ -89,6 +89,32 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: text;
 }
 
+/* Chrome, Safari, Edge */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+/* Firefox */
+input[type="date"]::-moz-calendar-picker-indicator {
+  display: none;
+}
+
+/* Override iOS Safari quirks */
+input[type="date"] {
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+
 /* Hide native date picker arrow on desktop browsers */
 input[type="date"]::-webkit-calendar-picker-indicator {
   display: none;
