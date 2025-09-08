@@ -8,20 +8,7 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-// Set dynamic placeholder (MM/dd/YYYY)
-function setDynamicPlaceholder(input) {
-  const now = new Date();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const year = now.getFullYear();
-  input.setAttribute("placeholder", `${month}/dd/${year}`);
-}
-
-// Initialize placeholder
-setDynamicPlaceholder(dateInput);
-// Update placeholder every minute (if month changes)
-setInterval(() => setDynamicPlaceholder(dateInput), 60000);
-
-// Set min/max dates (next 3 days)
+// Set min/max dates (today → next 3 days)
 const today = new Date();
 const maxDate = new Date();
 maxDate.setDate(today.getDate() + 2);
@@ -30,28 +17,40 @@ function formatDate(date) {
   return date.toISOString().split("T")[0]; // YYYY-MM-DD
 }
 
-// Mobile: plain text input (no arrow), Desktop: native date picker
+// Mobile: Flatpickr, Desktop: native date picker
 if (isMobile()) {
-  dateInput.setAttribute("type", "text");
-  dateInput.setAttribute("inputmode", "numeric"); // show number keypad
-  dateInput.setAttribute("placeholder", "MM/dd/YYYY");
+  dateInput.setAttribute("type", "text"); // Flatpickr requires text
+
+  const fp = flatpickr(dateInput, {
+    dateFormat: "m/d/Y", // MM/DD/YYYY
+    minDate: "today",
+    maxDate: new Date().fp_incr(2), // 2 days ahead
+    allowInput: true
+  });
+
+  // Calendar icon triggers Flatpickr on mobile
+  calendarIcon.addEventListener("click", () => {
+    fp.open();
+  });
+
 } else {
+  // Desktop → native date picker
   dateInput.setAttribute("type", "date");
   dateInput.min = formatDate(today);
   dateInput.max = formatDate(maxDate);
+
+  // Calendar icon triggers native picker
+  calendarIcon.addEventListener("click", () => {
+    try {
+      if (dateInput.showPicker) dateInput.showPicker();
+      else dateInput.click();
+    } catch {
+      dateInput.click();
+    }
+  });
 }
 
-// Calendar icon triggers picker if available
-calendarIcon.addEventListener("click", () => {
-  try {
-    if (dateInput.showPicker) dateInput.showPicker(); // Chrome/Edge/Safari
-    else dateInput.click(); // fallback
-  } catch {
-    dateInput.click();
-  }
-});
-
-// Form submit handler
+// --- Form submit handler ---
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -61,24 +60,7 @@ form.addEventListener("submit", function (e) {
 
   if (!city || !targetDate) return;
 
-  let selected;
-
-  if (isMobile()) {
-    // Parse MM/dd/YYYY for mobile
-    const parts = targetDate.split("/");
-    if (parts.length !== 3) {
-      weatherDiv.innerHTML = `<p style="color:red;">Enter a valid date in MM/dd/YYYY format.</p>`;
-      weatherDiv.style.display = "block";
-      return;
-    }
-    const month = parseInt(parts[0], 10) - 1; // JS months 0-11
-    const day = parseInt(parts[1], 10);
-    const year = parseInt(parts[2], 10);
-    selected = new Date(year, month, day);
-  } else {
-    // Desktop
-    selected = new Date(targetDate);
-  }
+  const selected = new Date(targetDate);
 
   if (isNaN(selected.getTime())) {
     weatherDiv.innerHTML = `<p style="color:red;">Enter a valid date.</p>`;
