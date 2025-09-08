@@ -20,9 +20,9 @@ function formatDate(date) {
 
 // --- MOBILE ---
 if (isMobile()) {
-  dateInput.setAttribute("type", "text"); // ensures no native picker
+  dateInput.setAttribute("type", "text");
   dateInput.setAttribute("readonly", true);
-  dateInput.setAttribute("inputmode", "none"); // prevent mobile arrow/keyboard
+  dateInput.setAttribute("inputmode", "none");
   // Fake placeholder
   function setFakePlaceholder() {
     const now = new Date();
