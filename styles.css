@@ -87,7 +87,7 @@ input[type="date"]::placeholder {
 /* Custom calendar icon */
 .custom-calendar-icon {
   position: absolute;
-  right: 5px;
+  right: 10px;
   top: 50%;          /* consistent vertical centering */
   transform: translateY(-50%);
   cursor: pointer;
@@ -151,7 +151,6 @@ button:hover {
     font-style: italic;
   }
 }
-
 
 @media (max-width: 500px) {
   h1 {
