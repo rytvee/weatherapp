@@ -20,12 +20,13 @@ function formatDate(date) {
 // Mobile: Flatpickr, Desktop: native date picker
 if (isMobile()) {
   dateInput.setAttribute("type", "text"); // Flatpickr requires text
+  dateInput.setAttribute("readonly", true); // Prevent manual typing
 
   const fp = flatpickr(dateInput, {
     dateFormat: "m/d/Y", // MM/DD/YYYY
     minDate: "today",
     maxDate: new Date().fp_incr(2), // 2 days ahead
-    allowInput: true
+    allowInput: false // enforce readonly
   });
 
   // Calendar icon triggers Flatpickr on mobile
