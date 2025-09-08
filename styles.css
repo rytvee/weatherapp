@@ -77,9 +77,20 @@ input[type="date"]::-moz-calendar-picker-indicator {
 }
 
 /* MOBILE: Ensure text+readonly inputs have no arrow */
+/* Mobile text inputs used as fake date */
 input[type="text"][readonly] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
   background-image: none !important;
   background-color: #fff !important; /* keep white background */
+  caret-color: transparent; /* hide text cursor */
+}
+
+/* Extra safety: disable arrows in Android WebKit */
+input::-webkit-calendar-picker-indicator,
+input::-webkit-inner-spin-button,
+input::-webkit-clear-button {
+  display: none !important;
   -webkit-appearance: none !important;
   appearance: none !important;
 }
