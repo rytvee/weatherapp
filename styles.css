@@ -4,14 +4,6 @@
   -webkit-touch-callout: none; /* Remove blue tap highlight on iOS long-press menu */
 }
 
-/* Remove focus outlines for inputs/buttons */
-input:focus,
-button:focus,
-.custom-calendar-icon:focus {
-  outline: none;
-  box-shadow: none;
-}
-
 body {
   font-family: Arial, sans-serif;
   background: linear-gradient(to right, #743bd5, #d6b025);
@@ -96,6 +88,14 @@ input::-webkit-clear-button {
 /* Firefox fallback */
 input::-moz-calendar-picker-indicator {
   display: none !important;
+}
+
+/* Remove focus outlines for inputs/buttons */
+input:focus,
+button:focus,
+.custom-calendar-icon:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 /* Custom calendar icon */
