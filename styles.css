@@ -41,59 +41,47 @@ button {
   display: inline-block;
   width: 100%;
 }
-/* Hide dropdown arrows on desktop (Chrome, Safari, Edge) */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0 !important;
-  display: none !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
+
+.date-wrapper[data-placeholder]::after {
+  content: attr(data-placeholder);
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  pointer-events: none;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
 }
 
-/* Remove spinners and clear buttons */
+
+
+/* Hide the default calendar icon (Chrome, Edge, Safari) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  cursor: text;
+}
+
+/* Remove native dropdown arrow (Chrome, Safari, Edge) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Remove spinner arrows (some Android browsers) */
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-clear-button {
-  display: none !important;
+  display: none;
 }
 
 /* Firefox */
 input[type="date"]::-moz-calendar-picker-indicator {
-  display: none !important;
-}
-
-/* Normalize placeholder position for date inputs */
-input[type="date"]::placeholder {
-  text-align: left;
-  transform: translateY(0); /* remove vertical centering */
-  opacity: 0.7;
-}
-
-/* Date wrapper + fake placeholder (mobile only) */
-.date-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-#dateInput {
-  width: 200px;
-  padding: 10px;
-  font-size: 16px;
-  background: #fff; /* restore background */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#datePlaceholder {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  color: #888;
-  pointer-events: none;
-  font-size: 16px;
-}
-
-/* Hide fake placeholder once value is set */
-.has-value + #datePlaceholder {
   display: none;
 }
 
@@ -101,7 +89,7 @@ input[type="date"]::placeholder {
 /* Custom calendar icon */
 .custom-calendar-icon {
   position: absolute;
-  right: ;
+  right: 10px;
   top: 45%;
   transform: translateY(-50%);
   cursor: pointer;
