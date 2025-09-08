@@ -76,25 +76,33 @@ input[type="date"]::-moz-calendar-picker-indicator {
   display: none !important;
 }
 
-/* MOBILE: Ensure text+readonly inputs have no arrow */
-/* Mobile text inputs used as fake date */
+/* Force-hide native dropdown arrow across all browsers */
+input[type="date"],
 input[type="text"][readonly] {
   -webkit-appearance: none !important;
   appearance: none !important;
   background-image: none !important;
-  background-color: #fff !important; /* keep white background */
-  caret-color: transparent; /* hide text cursor */
+  caret-color: transparent; /* hide blinking cursor */
 }
 
-/* Extra safety: disable arrows in Android WebKit */
+/* Remove WebKit indicators (Chrome/Android/Safari) */
 input::-webkit-calendar-picker-indicator,
 input::-webkit-inner-spin-button,
 input::-webkit-clear-button {
   display: none !important;
   -webkit-appearance: none !important;
   appearance: none !important;
+  opacity: 0 !important;
+  background: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
 }
 
+/* Firefox fallback */
+input::-moz-calendar-picker-indicator {
+  display: none !important;
+}
 /* Custom calendar icon */
 .custom-calendar-icon {
   position: absolute;
