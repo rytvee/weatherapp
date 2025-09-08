@@ -59,33 +59,17 @@ button {
   display: none;
 }
 
-/* DESKTOP: Hide dropdown arrows for native date inputs */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-  opacity: 0 !important;
-}
-
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-clear-button {
-  display: none !important;
-}
-
-input[type="date"]::-moz-calendar-picker-indicator {
-  display: none !important;
-}
-
-/* Force-hide native dropdown arrow across all browsers */
+/* ✅ Force-hide all native dropdown arrows on desktop & mobile */
 input[type="date"],
 input[type="text"][readonly] {
   -webkit-appearance: none !important;
   appearance: none !important;
   background-image: none !important;
+  background-color: #fff !important; /* keep white background */
   caret-color: transparent; /* hide blinking cursor */
 }
 
-/* Remove WebKit indicators (Chrome/Android/Safari) */
+/* Kill all WebKit arrows/icons */
 input::-webkit-calendar-picker-indicator,
 input::-webkit-inner-spin-button,
 input::-webkit-clear-button {
@@ -103,6 +87,7 @@ input::-webkit-clear-button {
 input::-moz-calendar-picker-indicator {
   display: none !important;
 }
+
 /* Custom calendar icon */
 .custom-calendar-icon {
   position: absolute;
