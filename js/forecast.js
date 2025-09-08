@@ -42,10 +42,11 @@ if (isMobile()) {
     maxDate: new Date().fp_incr(2),
     allowInput: false,
     onChange: function (selectedDates, dateStr) {
+      const wrapper = dateInput.closest(".date-wrapper");
       if (dateStr) {
-        dateInput.classList.add("has-value"); // hide fake placeholder
+        wrapper.classList.add("has-value");
       } else {
-        dateInput.classList.remove("has-value"); // show fake placeholder
+        wrapper.classList.remove("has-value");
       }
     }
   });
