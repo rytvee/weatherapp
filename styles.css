@@ -26,7 +26,7 @@ form {
   margin: 0 auto 20px auto;
   width: 100%;
 }
-
+/* Inputs and buttons */
 input,
 button {
   padding: 12px;
@@ -34,10 +34,9 @@ button {
   border-radius: 6px;
   font-size: 1rem;
   width: 100%;
+  background: #fff;     /* ✅ restore input background */
+  color: #000;          /* ensure text is visible */
 }
-
-
-
 
 /* Date wrapper + fake placeholder (mobile only) */
 .date-wrapper {
@@ -56,15 +55,14 @@ button {
   font-size: 16px;
 }
 
-/* Hide fake placeholder once value is set */
 .has-value + #datePlaceholder {
   display: none;
 }
 
+/* ✅ Completely hide native dropdown arrows */
 
-/* Hide dropdown arrows on desktop (Chrome, Safari, Edge) */
+/* Chrome, Safari, Edge */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0 !important;
   display: none !important;
   -webkit-appearance: none !important;
   appearance: none !important;
@@ -81,50 +79,18 @@ input[type="date"]::-moz-calendar-picker-indicator {
   display: none !important;
 }
 
-/* Normalize placeholder position for date inputs */
+/* Normalize placeholder on desktop */
 input[type="date"]::placeholder {
   text-align: left;
-  transform: translateY(0); /* remove vertical centering */
+  transform: none;   /* ✅ removes vertical centering */
   opacity: 0.7;
 }
-
-
-
-/* Hide the default calendar icon (Chrome, Edge, Safari) */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  cursor: text;
-}
-
-/* Remove native dropdown arrow (Chrome, Safari, Edge) */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  display: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-/* Remove spinner arrows (some Android browsers) */
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-clear-button {
-  display: none;
-}
-
-/* Firefox */
-input[type="date"]::-moz-calendar-picker-indicator {
-  display: none;
-}
-
 
 /* Custom calendar icon */
 .custom-calendar-icon {
   position: absolute;
   right: 10px;
-  top: 45%;
+  top: 50%;          /* ✅ consistent vertical centering */
   transform: translateY(-50%);
   cursor: pointer;
   color: gray;
