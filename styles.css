@@ -1,5 +1,15 @@
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* Remove blue tap highlight on iOS & Android */
+  -webkit-touch-callout: none; /* Remove blue tap highlight on iOS long-press menu */
+}
+
+/* Remove focus outlines for inputs/buttons */
+input:focus,
+button:focus,
+.custom-calendar-icon:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 body {
