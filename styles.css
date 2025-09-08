@@ -46,15 +46,6 @@ button {
   width: 100%;
 }
 
-#dateInput {
-  width: 200px;
-  padding: 10px;
-  font-size: 16px;
-  background: #fff; /* restore background */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
 #datePlaceholder {
   position: absolute;
   top: 50%;
