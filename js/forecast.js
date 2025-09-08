@@ -8,6 +8,17 @@ function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
+function setFakePlaceholder() {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const year = now.getFullYear();
+  document.getElementById("datePlaceholder").textContent = `${month}/dd/${year}`;
+}
+
+// Initialize placeholder
+setFakePlaceholder();
+
+
 // Set min/max dates (today → next 3 days)
 const today = new Date();
 const maxDate = new Date();
