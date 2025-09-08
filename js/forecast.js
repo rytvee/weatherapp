@@ -2,22 +2,12 @@ const form = document.getElementById("weatherForm");
 const weatherDiv = document.getElementById("weather");
 const dateInput = document.getElementById("dateInput");
 const calendarIcon = document.getElementById("calendarIcon");
+const datePlaceholder = document.getElementById("datePlaceholder");
 
 // Detect mobile devices
 function isMobile() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
-
-function setFakePlaceholder() {
-  const now = new Date();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const year = now.getFullYear();
-  document.getElementById("datePlaceholder").textContent = `${month}/dd/${year}`;
-}
-
-// Initialize placeholder
-setFakePlaceholder();
-
 
 // Set min/max dates (today → next 3 days)
 const today = new Date();
@@ -28,25 +18,42 @@ function formatDate(date) {
   return date.toISOString().split("T")[0]; // YYYY-MM-DD
 }
 
-// Mobile: Flatpickr, Desktop: native date picker
+// --- MOBILE ---
 if (isMobile()) {
-  dateInput.setAttribute("type", "text"); // Flatpickr requires text
-  dateInput.setAttribute("readonly", true); // Prevent manual typing
+  // Fake placeholder
+  function setFakePlaceholder() {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const year = now.getFullYear();
+    datePlaceholder.textContent = `${month}/dd/${year}`;
+  }
+  setFakePlaceholder();
+
+  // Flatpickr setup
+  dateInput.setAttribute("type", "text");
+  dateInput.setAttribute("readonly", true);
 
   const fp = flatpickr(dateInput, {
-    dateFormat: "m/d/Y", // MM/DD/YYYY
+    dateFormat: "m/d/Y",
     minDate: "today",
-    maxDate: new Date().fp_incr(2), // 2 days ahead
-    allowInput: false // enforce readonly
+    maxDate: new Date().fp_incr(2),
+    allowInput: false,
+    onChange: function (selectedDates, dateStr) {
+      if (dateStr) {
+        dateInput.classList.add("has-value"); // hide fake placeholder
+      } else {
+        dateInput.classList.remove("has-value"); // show fake placeholder
+      }
+    }
   });
 
-  // Calendar icon triggers Flatpickr on mobile
+  // Calendar icon opens Flatpickr
   calendarIcon.addEventListener("click", () => {
     fp.open();
   });
 
+// --- DESKTOP ---
 } else {
-  // Desktop → native date picker
   dateInput.setAttribute("type", "date");
   dateInput.min = formatDate(today);
   dateInput.max = formatDate(maxDate);
