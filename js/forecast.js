@@ -30,11 +30,12 @@ function formatDate(date) {
   return date.toISOString().split("T")[0]; // YYYY-MM-DD
 }
 
-// Mobile: remove native picker, show placeholder
+// Mobile: plain text input (no arrow), Desktop: native date picker
 if (isMobile()) {
   dateInput.setAttribute("type", "text");
+  dateInput.setAttribute("inputmode", "numeric"); // show number keypad
+  dateInput.setAttribute("placeholder", "MM/dd/YYYY");
 } else {
-  // Desktop: native date picker
   dateInput.setAttribute("type", "date");
   dateInput.min = formatDate(today);
   dateInput.max = formatDate(maxDate);
