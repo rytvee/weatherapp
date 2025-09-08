@@ -26,7 +26,8 @@ form {
   margin: 0 auto 20px auto;
   width: 100%;
 }
-/* Inputs and buttons */
+
+/* General form/input styles */
 input,
 button {
   padding: 12px;
@@ -34,8 +35,6 @@ button {
   border-radius: 6px;
   font-size: 1rem;
   width: 100%;
-  background: #fff;
-  color: #000;
 }
 
 /* Date wrapper + fake placeholder (mobile only) */
@@ -55,39 +54,32 @@ button {
   font-size: 16px;
 }
 
+/* Hide fake placeholder once value is set */
 .date-wrapper.has-value #datePlaceholder {
   display: none;
 }
 
-/* Hide native dropdown arrows for Chrome, Safari, Edge */
+/* DESKTOP: Hide dropdown arrows for native date inputs */
 input[type="date"]::-webkit-calendar-picker-indicator {
   display: none !important;
   -webkit-appearance: none !important;
   appearance: none !important;
+  opacity: 0 !important;
 }
 
-/* Remove spinners and clear buttons */
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-clear-button {
   display: none !important;
 }
 
-/* Hide native dropdown arrows for Firefox */
 input[type="date"]::-moz-calendar-picker-indicator {
   display: none !important;
 }
 
-/* Normalize placeholder on desktop */
-input[type="date"]::placeholder {
-  text-align: left;
-  transform: none;   /* removes vertical centering */
-  opacity: 0.7;
-}
-
-/* Completely remove the native dropdown arrow and background */
+/* MOBILE: Ensure text+readonly inputs have no arrow */
 input[type="text"][readonly] {
   background-image: none !important;
-  background: #fff !important;   /* keep white background */
+  background-color: #fff !important; /* keep white background */
   -webkit-appearance: none !important;
   appearance: none !important;
 }
