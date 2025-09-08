@@ -36,22 +36,65 @@ button {
   width: 100%;
 }
 
+
+
+
+/* Date wrapper + fake placeholder (mobile only) */
 .date-wrapper {
   position: relative;
   display: inline-block;
   width: 100%;
 }
 
-.date-wrapper[data-placeholder]::after {
-  content: attr(data-placeholder);
+#dateInput {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  background: #fff; /* restore background */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#datePlaceholder {
   position: absolute;
-  left: 12px;
   top: 50%;
+  left: 12px;
   transform: translateY(-50%);
-  color: #999;
+  color: #888;
   pointer-events: none;
-  font-size: 1rem;
-  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* Hide fake placeholder once value is set */
+.has-value + #datePlaceholder {
+  display: none;
+}
+
+
+/* Hide dropdown arrows on desktop (Chrome, Safari, Edge) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0 !important;
+  display: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Remove spinners and clear buttons */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+  display: none !important;
+}
+
+/* Firefox */
+input[type="date"]::-moz-calendar-picker-indicator {
+  display: none !important;
+}
+
+/* Normalize placeholder position for date inputs */
+input[type="date"]::placeholder {
+  text-align: left;
+  transform: translateY(0); /* remove vertical centering */
+  opacity: 0.7;
 }
 
 
