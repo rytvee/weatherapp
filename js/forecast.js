@@ -23,6 +23,7 @@ if (isMobile()) {
   dateInput.setAttribute("type", "text");
   dateInput.setAttribute("readonly", true);
   dateInput.setAttribute("inputmode", "none");
+
   // Fake placeholder
   function setFakePlaceholder() {
     const now = new Date();
@@ -33,9 +34,6 @@ if (isMobile()) {
   setFakePlaceholder();
 
   // Flatpickr setup
-  dateInput.setAttribute("type", "text");
-  dateInput.setAttribute("readonly", true);
-
   const fp = flatpickr(dateInput, {
     dateFormat: "m/d/Y",
     minDate: "today",
