@@ -1,21 +1,17 @@
-# 🌦 Weather App
+Weather App
 A simple JavaScript web application that displays the current weather and a 2-day forecast for any city.
 The app fetches real-time weather data using a public weather API and shows details such as temperature, weather condition, humidity, and more.
-> ❓ **Question**
-> Frequently asked question.
 
-> [!WARNING]
-> Do not delete the `.env` file.
-## 🌐 Live Demo
+Live Demo
 You can try the app here:
 [Live Weather App](https://rytvee.github.io/weatherapp/)
 
-## ✨ Features
-- 🌍 Search for any city worldwide
-- 🌤 View current weather (temperature, humidity, description)
-- 📅 See 2-day weather forecast ahead
-- 📱 Fully responsive design for desktop and mobile
-- 🗓 Built-in date picker for easy date selection
+Features
+- Search for any city worldwide
+- View current weather (temperature, humidity, description)
+- See 2-day weather forecast ahead
+- Fully responsive design for desktop and mobile
+- Built-in date picker for easy date selection
 
 ## 🛠 Technologies Used
 - HTML5 – Structure of the app
@@ -23,7 +19,7 @@ You can try the app here:
 - JavaScript (Vanilla JS) – Core logic and API handling
 - OpenWeatherMap API – For weather data
 
-## 📂 Project Structure
+## Project Structure
 ```text
 weatherapp/
 │── index.html             # Main HTML layout (check current weather)
@@ -37,12 +33,12 @@ weatherapp/
 └── images/                # Weather icons and images
 ```
 
-## 🔐 API handling
+## API handling
 This project uses a secured backend layer (Vercel serverless functions) which contains the WeatherAPI serverless endpoint used when the app is deployed to Vercel.
 This acts as a proxy between the browser and the external weather API.
 The API key is stored securely in Vercel Environment Variables to revents the API key from being exposed in client-side code.
 
-## 📋 How It Works
+## How It Works
 **Browser (GitHub Pages frontend)**  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ request to `/api/weather`  
 **Vercel Serverless Function** (`weather-api-proxy/`)  
@@ -52,12 +48,12 @@ The API key is stored securely in Vercel Environment Variables to revents the AP
 **Vercel → Browser**  
 
 
-## 🚀 Usage
+## Usage
 1. Enter a city name in the search box.
 2. Click "Get Weather" or press Enter.
 3. View the current weather and 2-day forecast displayed on screen.
 
-## 📷 Screenshots
+## Screenshots
 
 **Check current weather**
 
@@ -84,6 +80,6 @@ The API key is stored securely in Vercel Environment Variables to revents the AP
 ![Check current weather](images/weather-forecast-result.png)
 
 
-## 📜 License
+## License
 This project is free to use and modify.
 
