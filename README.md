@@ -1,12 +1,12 @@
-Weather App
+# Weather App
 A simple JavaScript web application that displays the current weather and a 2-day forecast for any city.
 The app fetches real-time weather data using a public weather API and shows details such as temperature, weather condition, humidity, and more.
 
-Live Demo
+## Live Demo
 You can try the app here:
 [Live Weather App](https://rytvee.github.io/weatherapp/)
 
-Features
+## Features
 - Search for any city worldwide
 - View current weather (temperature, humidity, description)
 - See 2-day weather forecast ahead
