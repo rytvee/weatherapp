@@ -3,6 +3,9 @@ A simple JavaScript web application that displays the current weather and a 2-da
 The app fetches real-time weather data using a public weather API and shows details such as temperature, weather condition, humidity, and more.
 > ❓ **Question**
 > Frequently asked question.
+
+> [!WARNING]
+> Do not delete the `.env` file.
 ## 🌐 Live Demo
 You can try the app here:
 [Live Weather App](https://rytvee.github.io/weatherapp/)
