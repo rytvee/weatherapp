@@ -4,11 +4,11 @@ The app fetches real-time weather data using a public weather API and shows deta
 > [!TIP]
 
 
-> [!IMPORTANT]
 ## 🌐 Live Demo
 You can try the app here:
 [Live Weather App](https://rytvee.github.io/weatherapp/)
 
+> [!IMPORTANT]
 ## ✨ Features
 - 🌍 Search for any city worldwide
 - 🌤 View current weather (temperature, humidity, description)
