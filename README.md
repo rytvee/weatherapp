@@ -17,7 +17,7 @@ You can try the app here:
 - ![HTML5](https://img.shields.io/badge/HTML5-Structure-orange?logo=html5)
 - ![CSS3](https://img.shields.io/badge/CSS3-Styling-blue?logo=css3)
 - ![JavaScript](https://img.shields.io/badge/JavaScript-Logic-yellow?logo=javascript)
-- ![API](https://img.shields.io/badge/)
+- ![API](https://img.shields.io/badge/OpenWeatherMap-Weather-green)
 
 ## Project Structure
 ```text
