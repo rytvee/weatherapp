@@ -2,7 +2,8 @@
 A simple JavaScript web application that displays the current weather and a 2-day forecast for any city.
 The app fetches real-time weather data using a public weather API and shows details such as temperature, weather condition, humidity, and more.
 > [!TIP]
-> [!IMPORTANT]
+
+
 > [!IMPORTANT]
 ## 🌐 Live Demo
 You can try the app here:
